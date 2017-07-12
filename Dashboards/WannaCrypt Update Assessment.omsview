@@ -1,0 +1,261 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "location": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "resourcegroup": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "subscriptionId": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspace": {
+            "type": "string",
+            "defaultValue": ""
+        },
+        "workspaceapiversion": {
+            "type": "string",
+            "defaultValue": ""
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('workspaceapiversion')]",
+            "name": "[parameters('workspace')]",
+            "type": "Microsoft.OperationalInsights/workspaces",
+            "location": "[parameters('location')]",
+            "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]",
+            "resources": [
+                {
+                    "apiVersion": "2015-11-01-preview",
+                    "name": "WannaCrypt Update Assessment",
+                    "type": "views",
+                    "location": "[parameters('location')]",
+                    "id": "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'),'/views/WannaCrypt Update Assessment')]",
+                    "dependson": [
+                        "[Concat('/subscriptions/', parameters('subscriptionId'), '/resourceGroups/', parameters('resourcegroup'), '/providers/Microsoft.OperationalInsights/workspaces/', parameters('workspace'))]"
+                    ],
+                    "properties": {
+                        "Id": "WannaCrypt Update Assessment",
+                        "Name": "WannaCrypt Update Assessment",
+                        "Author": "gkaleta@microsoft.com",
+                        "Source": "Local",
+                        "Version": 1,
+                        "Dashboard": [
+                            {
+                                "Id": "NumberTileListBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "Update Assessment - WannaCrypt Status",
+                                        "newGroup": false,
+                                        "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMTXdYP5PAAACmklEQVRIS7WWvW/UMBjG3z8gznVnYWbqilg6dmRkZIIFiY8B6ABISEgUTiptD0YORBnaARALEgj1m48yIDY2ECvDscBafvEb+5zETo6TePToFCf270leJ/bJ4X9Wd8Dv0ejljVs3Z4+fkcybJie5VHZKqyPgzdLg/MyRc5Iti3khuTdNTnJpf/ik7JpQPIBbY+TC0WPc7IqYXel9tP7g/F5629K7J4YOdKNz6mmKAK593dxR8+APTp7SOvTFvHXoGl39TvLXkt+xMZiBDPeoSoD2wAti+pI/lXxPegdddO9NyR+LWRRz1XHwOADR/iQz6oPCBf2+5Lidvmq9b71nvVu4eCYl1wNC+tLsCTyQvIWufTgI6cmAGv3P6BfWjBTd96Hp6fEAT6cmPoBLYUaT7jusBPSdREBlViE2MyakJwM8XYvezAA9CT0e8Mq+MJ6us9rMmIS+EQ1gAajR1bWMTvp2KmDNvY4hvVl01E7Hw2ZAf27+rpgovTOgRse3WWbm5rVzGcAackmyTjq//kAzmvQtMRclYxm2YBfw89t3HmrdfVApOse1pmaE9DVbH4AW7AIQD3VdTDsdHG6e9HR8LagPGgewwJL8rJWuRY9mKH3DrqN+rUbjAEQyM7HVStdZbWYsF3tDRvXD20eVAArHLsgG4gOidLXPcAHFy8NwX31VJQCx+fGM7B6akaJr0TVD6Q9tcZpbdD0ArV+47DNa6DqrVMbTGVgiAkUC0PD0WQY8cugU3TpTOkPKwVXFA1CYMTUdJQOQ1mpRshSdWaVDtDJebQGISePFuFKstRX6c8k4Of0fr1A/Pn/hjyL/4waOvioZTU5yqeyUVneAitWQanDXmAOa5YUuTRqA+IL4SnHtU2rXPwRMo8PDv1TxIOByhStWAAAAAElFTkSuQmCC",
+                                        "useIcon": true
+                                    },
+                                    "Tile": {
+                                        "Query": "Type=Update and OSType!=Linux Computer NOT IN { Type=Update and OSType!=Linux and (UpdateState=Installed and (KBID=4012212 or KBID=4012213 or KBID=4012214 or KBID=4012215 or KBID=4012216 or KBID=4012217 or KBID=4012606 or KBID=4015217 or KBID=4015221 or KBID=4015438 or KBID=4015549 or KBID=4015550 or KBID=4015551 or KBID=4012598 or KBID=4013198 or KBID=4015219 or KBID=4019215 or KBID=4019216 or KBID=4019264 or KBID=4019472 or KBID=4019473 or KBID=4019217 or KBID=4019474)) | measure count() by Computer } | measure count() by Computer | select Computer",
+                                        "Legend": "Computers Missing WannaCrypt Updates"
+                                    },
+                                    "List": {
+                                        "Query": "Type=Update and OSType!=Linux Computer NOT IN { Type=Update and OSType!=Linux and (UpdateState=Installed and (KBID=4012212 or KBID=4012213 or KBID=4012214 or KBID=4012215 or KBID=4012216 or KBID=4012217 or KBID=4012606 or KBID=4015217 or KBID=4015221 or KBID=4015438 or KBID=4015549 or KBID=4015550 or KBID=4015551 or KBID=4012598 or KBID=4013198 or KBID=4015219 or KBID=4019215 or KBID=4019216 or KBID=4019264 or KBID=4019472 or KBID=4019473 or KBID=4019217 or KBID=4019474)) | measure count() by Computer } | measure count() by Computer | select Computer",
+                                        "HideGraph": true,
+                                        "enableSparklines": false,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Computer Name",
+                                            "Value": ""
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "60",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "{selected item}"
+                                    }
+                                }
+                            },
+                            {
+                                "Id": "NumberTileListBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "",
+                                        "newGroup": false,
+                                        "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMTXdYP5PAAACiklEQVRIS7WWzWvUQBiH91BQUNSLVdCC4EdBpRWk2LV+7J/gn+DVi4r0ooI9eWiFWtCDp5ZSkK4fe9BFyup2rRove9BeBGFB2EsuLh4WYb1kfbIzJpn0ncl2wR/vJcnM8yRvkkly3f+cbMGf37++vp4p3z+zci0XFZvs5JAeZE+G4Fv14eqtfcUbQ/WFQ/6L8ajYZCeHGp+X9FBLZAGnxszS3SOcbH3hcKc6FXy4ZNTGxc67PBoGMIzBtqsJBRzzv9dUceG1J1dUH7wHB9tr54KPl7fSo2q/mfDmDqjxTGR6hDIEagRVvrMbbmN5NDxr0E56sHEheB9W5+1kY+mENzdcvr0rQsUCwnbwqaCJyeqDHldtKipJkEJTg9L7E0j0XC+Z9KB2Pksg0WNBFj1LYKHLAokerDsEdjqdSQssdFnQenXWTYdoCOx0v3haELAAuOmGwE7vCU4JAl4uNz0WOOnBer6xeCwtqMwXeOPddIsgTae82f0AFVkLWENK0zvddEkg0INqvjS9g2VYkbWg/fMHF9V8etJBh2gKZHpzZRQUQEXWAsJFVWb2OuimQKZTlXt7ov6QWMACi9l/PmajJwRWur8aPj/RWk1iAcHMnWDtFen/ykrvrE3Q/eTpE0NA4/gKho/T9ukUDw/To+6rGALCx49r5Osh0nWLJHpj8Wg4ccsnOi0g9Wc3e47jKbopEOhM1IhEBAHxlq+aDldnFJ0perIZWUASjsHpxCogqlfe7LCNzl1lgNiZKC4B4abxYPCv0CqNJ+mtl2PsHPzHK5lW8ws/isXrQ5uPRxR989EIm+zkkB5kT7ZAhdWQbnDW6s+HTX0gK/0KCG9QuF7NF1KvkjvbEAySbvcvu9Xcp6AFyngAAAAASUVORK5CYII=",
+                                        "useIcon": true
+                                    },
+                                    "Tile": {
+                                        "Query": "Type=Heartbeat OSType!=Linux Computer NOT IN { Type=Update OSType!=Linux | measure count() by Computer } | measure count() by Computer | select Computer",
+                                        "Legend": "Computers Not Assessed"
+                                    },
+                                    "List": {
+                                        "Query": "Type=Heartbeat OSType!=Linux Computer NOT IN { Type=Update OSType!=Linux | measure count() by Computer } | measure count() by Computer | select Computer",
+                                        "HideGraph": true,
+                                        "enableSparklines": false,
+                                        "operation": "Last Sample",
+                                        "ColumnsTitle": {
+                                            "Name": "Computer Name",
+                                            "Value": ""
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "60",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "{selected item}"
+                                    }
+                                }
+                            },
+                            {
+                                "Id": "NumberTileListBuilderBlade",
+                                "Type": "Blade",
+                                "Version": 0,
+                                "Configuration": {
+                                    "General": {
+                                        "title": "",
+                                        "newGroup": false,
+                                        "icon": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAIAAAD8GO2jAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAZdEVYdFNvZnR3YXJlAHBhaW50Lm5ldCA0LjAuMTXdYP5PAAACrklEQVRIS7WWy27TQBSGbceOp5kmvADiBaq+AOIFEC+AugAJEBSEQNwK6Q6VFMqlFCkVJb1Bm+5Ys4a+QRes6ZpNu4B1+CYzGU9S20kM/DqLeC7fPz7HPo7X+c8abnD066jxefFs/Vx15pQNLhlkyizK1hCD5pfV09fOTF6uxfOy9E6UVkzEdTl5qcbU7te2WZqhdAOOxs6pO9McFrS/VfZ2I2+nF59U+BtlbFjAMhZn3Y0yYG7/+74ObvzimxmdBzEng1YXfYKu4iMRBu8j8VDZEGxku0X1GegVhJytwo1eTPjbPXQ23ds24beiqCHEAylvVC0qMUBce3uRiXY3RqZ7W73Y7MaGimyDf0HPNihED5fiYKXs0r31VINCdFI/dXeaR1Z59OjZBuPTeeOOfx+3v+0pj7dlTc8wKErXBH7HcxVj0EozCFbjwvTZtZvivrT00ss4xYBO4NKDZhy+EgXomQbR8wmXTk6pXrQoxqUT0VMxaHB+4YJ4JF06dYMCC+JYdO9DyCBAvcYY0EPk1ZpOOi0Mih5PPEamE/JKjTaslxmDw5+H3JRKereq9C/26yntwciI9LChCgBQrzQGiJuq3K7aqg548HsUOlG5NWnzgxIDGizOpeXYVtX1sMqnl5bU8W2vRokBwplK+OuRrSod2PXIp/vNiOy7x0d9BiSOryAH13QVm4lHPt1bC8U9yXabfa0+A8THj3vUj43twHjwTuTT9bN/8hM9aIAe7zxRHs+E24GjBTGUzkaDcJRigMiG8gDqdOB8ulsqV+kGKPH4CzrKNEA6Vyb1aXSqyoLUzFjlGSCKxoMhr1eD5bJLD16XGSz+x8vVwY8DmgTtL56vaHpcr3DJIFNmUbaGG2jRDckGpyb4waWZGKZRDRBvEG8pMfAq5WsMgyLqdP4ABGyetMVIIjgAAAAASUVORK5CYII=",
+                                        "useIcon": true
+                                    },
+                                    "Tile": {
+                                        "Query": "Type=Update and OSType!=Linux and (UpdateState=Installed and (KBID=4012212 or KBID=4012213 or KBID=4012214 or KBID=4012215 or KBID=4012216 or KBID=4012217 or KBID=4012606 or KBID=4015217 or KBID=4015221 or KBID=4015438 or KBID=4015549 or KBID=4015550 or KBID=4015551 or KBID=4012598 or KBID=4013198 or KBID=4015219 or KBID=4019215 or KBID=4019216 or KBID=4019264 or KBID=4019472 or KBID=4019473 or KBID=4019217 or KBID=4019474)) | measure count() by Computer",
+                                        "Legend": "Computers Protected from WannaCrypt"
+                                    },
+                                    "List": {
+                                        "Query": "Type=Update and OSType!=Linux and (UpdateState=Installed and (KBID=4012212 or KBID=4012213 or KBID=4012214 or KBID=4012215 or KBID=4012216 or KBID=4012217 or KBID=4012606 or KBID=4015217 or KBID=4015221 or KBID=4015438 or KBID=4015549 or KBID=4015550 or KBID=4015551 or KBID=4012598 or KBID=4013198 or KBID=4015219 or KBID=4019215 or KBID=4019216 or KBID=4019264 or KBID=4019472 or KBID=4019473 or KBID=4019217 or KBID=4019474)) | measure count() by Computer | select Computer",
+                                        "HideGraph": true,
+                                        "enableSparklines": false,
+                                        "operation": "Summary",
+                                        "ColumnsTitle": {
+                                            "Name": "Computer Name",
+                                            "Value": ""
+                                        },
+                                        "Color": "#0072c6",
+                                        "thresholds": {
+                                            "isEnabled": false,
+                                            "values": [
+                                                {
+                                                    "name": "Normal",
+                                                    "threshold": "Default",
+                                                    "color": "#009e49",
+                                                    "isDefault": true
+                                                },
+                                                {
+                                                    "name": "Warning",
+                                                    "threshold": "60",
+                                                    "color": "#fcd116",
+                                                    "isDefault": false
+                                                },
+                                                {
+                                                    "name": "Error",
+                                                    "threshold": "90",
+                                                    "color": "#ba141a",
+                                                    "isDefault": false
+                                                }
+                                            ]
+                                        },
+                                        "NameDSVSeparator": "",
+                                        "NavigationQuery": "{selected item}"
+                                    }
+                                }
+                            }
+                        ],
+                        "OverviewTile": {
+                            "Id": "MultiQueryDonutBuilderTile",
+                            "Type": "OverviewTile",
+                            "Version": 0,
+                            "Configuration": {
+                                "Donut": {
+                                    "Arcs": {
+                                        "Arc1": {
+                                            "Legend": "Vulnerable to WannaCrypt",
+                                            "Query": "Type=Update and OSType!=Linux Computer NOT IN { Type=Update and OSType!=Linux and (UpdateState=Installed and (KBID=4012212 or KBID=4012213 or KBID=4012214 or KBID=4012215 or KBID=4012216 or KBID=4012217 or KBID=4012606 or KBID=4015217 or KBID=4015221 or KBID=4015438 or KBID=4015549 or KBID=4015550 or KBID=4015551 or KBID=4012598 or KBID=4013198 or KBID=4015219 or KBID=4019215 or KBID=4019216 or KBID=4019264 or KBID=4019472 or KBID=4019473 or KBID=4019217 or KBID=4019474)) | measure count() by Computer } | measure count() by Computer | select Computer"
+                                        },
+                                        "Arc2": {
+                                            "Legend": "Not Assessed",
+                                            "Query": "Type=Heartbeat OSType!=Linux Computer NOT IN { Type=Update OSType!=Linux | measure count() by Computer } | measure count() by Computer | select Computer"
+                                        },
+                                        "Arc3": {
+                                            "Legend": "Protected from WannaCrypt",
+                                            "Query": "Type=Update and OSType!=Linux and (UpdateState=Installed and (KBID=4012212 or KBID=4012213 or KBID=4012214 or KBID=4012215 or KBID=4012216 or KBID=4012217 or KBID=4012606 or KBID=4015217 or KBID=4015221 or KBID=4015438 or KBID=4015549 or KBID=4015550 or KBID=4015551 or KBID=4012598 or KBID=4013198 or KBID=4015219 or KBID=4019215 or KBID=4019216 or KBID=4019264 or KBID=4019472 or KBID=4019473 or KBID=4019217 or KBID=4019474)) | measure count() by Computer"
+                                        }
+                                    },
+                                    "CenterLegend": {
+                                        "Text": "Total",
+                                        "Operation": "Sum",
+                                        "ArcsToSelect": {
+                                            "Arc1": true,
+                                            "Arc2": true,
+                                            "Arc3": true
+                                        }
+                                    },
+                                    "Options": {
+                                        "colors": [
+                                            "#ba141a",
+                                            "#fcd116",
+                                            "#7fba00"
+                                        ]
+                                    }
+                                },
+                                "Advanced": {
+                                    "DataFlowVerification": {
+                                        "Enabled": false,
+                                        "Query": "*",
+                                        "Message": ""
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}
